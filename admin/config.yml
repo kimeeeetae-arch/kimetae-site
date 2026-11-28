@@ -101,6 +101,15 @@ collections:
       - label: '분류 (예: 회화 연작 · 단편소설)'
         name: k
         widget: string
+      - label: '구분 (비우면 개인 작업)'
+        name: cat
+        widget: select
+        required: false
+        options:
+        - label: 개인 작업
+          value: ''
+        - label: Collective
+          value: collective
       - label: 장소
         name: v
         widget: string
