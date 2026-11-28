@@ -1,0 +1,408 @@
+backend:
+  name: github
+  repo: kimeeeetae-arch/kimetae-site
+  branch: main
+locale: ko
+media_folder: i/uploads
+public_folder: /i/uploads
+collections:
+- name: paintings
+  label: 작품 (Artwork)
+  files:
+  - name: list
+    label: Painting 목록 (맨 위가 먼저 보임)
+    file: content/paintings.json
+    fields:
+    - label: 작품
+      name: items
+      widget: list
+      summary: '{{fields.title}} · {{fields.year}}'
+      fields:
+      - label: 사진
+        name: image
+        widget: image
+      - label: 제목
+        name: title
+        widget: string
+      - label: '크기 (cm) 예: 35 × 24'
+        name: size
+        widget: string
+        required: false
+      - label: 재료
+        name: medium
+        widget: string
+        default: 캔버스에 아크릴
+      - label: 연도
+        name: year
+        widget: string
+      - label: '덧붙임 (예: 개인소장)'
+        name: note
+        widget: string
+        required: false
+  - name: drawings
+    label: Drawing 목록 (맨 위가 먼저 보임)
+    file: content/drawings.json
+    fields:
+    - label: 작품
+      name: items
+      widget: list
+      summary: '{{fields.title}} · {{fields.year}}'
+      fields:
+      - label: 사진
+        name: image
+        widget: image
+      - label: 묶음 이름 (같은 이름끼리 한 묶음)
+        name: group
+        widget: string
+        required: false
+      - label: 제목
+        name: title
+        widget: string
+      - label: '크기 (cm) 예: 35 × 24'
+        name: size
+        widget: string
+        required: false
+      - label: 재료
+        name: medium
+        widget: string
+        required: false
+      - label: 연도
+        name: year
+        widget: string
+      - label: '덧붙임 (예: 〈Burn, Pick Up〉)'
+        name: note
+        widget: string
+        required: false
+- name: projects
+  label: 프로젝트 (Projects)
+  files:
+  - name: list
+    label: 프로젝트 목록 (맨 위가 먼저 보임)
+    file: content/projects.json
+    fields:
+    - label: 프로젝트
+      name: items
+      widget: list
+      summary: '{{fields.y}} · {{fields.t}}'
+      fields:
+      - label: '주소용 영문 ID (예: a26, 바꾸지 마세요)'
+        name: id
+        widget: string
+      - label: 연도
+        name: y
+        widget: string
+      - label: 제목 (한글)
+        name: t
+        widget: string
+      - label: 제목 옆 번역 (영문/한글)
+        name: en
+        widget: string
+        required: false
+      - label: '분류 (예: 회화 연작 · 단편소설)'
+        name: k
+        widget: string
+      - label: 장소
+        name: v
+        widget: string
+        required: false
+      - label: 정보 표
+        name: meta
+        widget: list
+        required: false
+        summary: '{{fields.label}}'
+        fields:
+        - label: 항목명 (비우면 한 줄 설명)
+          name: label
+          widget: string
+          required: false
+        - label: 내용
+          name: value
+          widget: string
+      - label: 자료 · 링크 (영상, 음반, PDF 등)
+        name: links
+        widget: list
+        required: false
+        summary: '{{fields.label}}'
+        fields:
+        - label: 이름
+          name: label
+          widget: string
+        - label: 부제 (제작자 등)
+          name: sub
+          widget: string
+          required: false
+        - label: 주소 (https://… 또는 #t-글아이디)
+          name: url
+          widget: string
+      - label: 소개 출처 한 줄
+        name: descq
+        widget: string
+        required: false
+      - label: 소개 문단
+        name: desc
+        widget: list
+        required: false
+        field:
+          label: 문단
+          name: p
+          widget: text
+      - label: 소개 끝 각주
+        name: descfoot
+        widget: string
+        required: false
+      - label: 추가 섹션
+        name: extra
+        widget: list
+        required: false
+        summary: '{{fields.h}}'
+        fields:
+        - label: 섹션 제목
+          name: h
+          widget: string
+        - label: 목록으로 표시
+          name: list
+          widget: boolean
+          default: false
+          required: false
+        - label: 큰 제목 활동 블록으로 표시
+          name: big
+          widget: boolean
+          default: false
+          required: false
+        - label: 부제 (형식 · 연도 · 장소)
+          name: sub
+          widget: string
+          required: false
+        - label: 이 섹션 사진 (글 아래에 붙음)
+          name: imgs
+          widget: list
+          required: false
+          summary: '{{fields.c}}'
+          fields:
+          - label: 사진
+            name: image
+            widget: image
+          - label: 캡션
+            name: c
+            widget: string
+            required: false
+        - label: 문단/항목
+          name: p
+          widget: list
+          field:
+            label: 내용
+            name: x
+            widget: text
+      - label: 사진 (첫 번째가 크게 나옴)
+        name: imgs
+        widget: list
+        required: false
+        summary: '{{fields.c}}'
+        fields:
+        - label: 사진
+          name: image
+          widget: image
+        - label: 캡션
+          name: c
+          widget: string
+          required: false
+      - label: 관련 글 ID 목록
+        name: texts
+        widget: list
+        required: false
+        field:
+          label: 글 ID
+          name: id
+          widget: string
+      - label: Artist Note 링크 표시
+        name: stmt
+        widget: boolean
+        default: false
+        required: false
+- name: writing
+  label: 글 (Writing)
+  files:
+  - name: list
+    label: 글 목록
+    file: content/writing.json
+    fields:
+    - label: 글
+      name: items
+      widget: list
+      summary: '{{fields.kind}} · {{fields.t}}'
+      fields:
+      - label: 주소용 영문 ID (한 번 정하면 바꾸지 마세요)
+        name: id
+        widget: string
+      - label: 분류
+        name: kind
+        widget: select
+        options:
+        - 원고
+        - 비평
+        - 서문
+        - 글
+      - label: 제목
+        name: t
+        widget: string
+      - label: 저자
+        name: a
+        widget: string
+      - label: 연도
+        name: y
+        widget: string
+      - label: 관련 프로젝트 ID
+        name: rel
+        widget: string
+        required: false
+      - label: 출처
+        name: src
+        widget: string
+        required: false
+      - label: 본문
+        name: b
+        widget: list
+        typeKey: t
+        types:
+        - label: 문단
+          name: p
+          widget: object
+          fields:
+          - label: 내용
+            name: x
+            widget: text
+        - label: 소제목
+          name: h
+          widget: object
+          fields:
+          - label: 내용
+            name: x
+            widget: string
+        - label: 번호/구분 표시
+          name: sec
+          widget: object
+          fields:
+          - label: 내용
+            name: x
+            widget: string
+        - label: 목록
+          name: ul
+          widget: object
+          fields:
+          - label: 항목
+            name: x
+            widget: list
+            field:
+              label: 줄
+              name: line
+              widget: string
+        - label: 시(줄바꿈)
+          name: poem
+          widget: object
+          fields:
+          - label: 줄
+            name: x
+            widget: list
+            field:
+              label: 줄
+              name: line
+              widget: string
+        - label: 크레딧
+          name: cr
+          widget: object
+          fields:
+          - label: 줄
+            name: x
+            widget: list
+            field:
+              label: 줄
+              name: line
+              widget: string
+        - label: 안내 문구
+          name: note
+          widget: object
+          fields:
+          - label: 내용
+            name: x
+            widget: text
+        - label: 이미지
+          name: img
+          widget: object
+          fields:
+          - label: 사진
+            name: f
+            widget: image
+          - label: 캡션
+            name: c
+            widget: string
+            required: false
+- name: pages
+  label: 작가노트 · CV · 연락처
+  files:
+  - name: statement
+    label: About (작가 소개 · 작가노트)
+    file: content/statement.json
+    fields:
+    - label: 작가 소개글 (About 맨 위, 짧게)
+      name: bio
+      widget: list
+      field:
+        label: 문단
+        name: p
+        widget: text
+    - label: 〈Everyday Tomorrow〉 작가노트 본문
+      name: note
+      widget: list
+      typeKey: t
+      types:
+      - label: 문단
+        name: p
+        widget: object
+        fields:
+        - label: 내용
+          name: x
+          widget: text
+      - label: 시(줄바꿈)
+        name: poem
+        widget: object
+        fields:
+        - label: 줄
+          name: x
+          widget: list
+          field:
+            label: 줄
+            name: line
+            widget: string
+    - label: 비고
+      name: note_src
+      widget: string
+      required: false
+  - name: cv
+    label: CV
+    file: content/cv.json
+    fields:
+    - label: 섹션
+      name: items
+      widget: list
+      summary: '{{fields.h}}'
+      fields:
+      - label: 섹션 이름 (개인전, 단체전 등)
+        name: h
+        widget: string
+      - label: 항목 (맨 위가 먼저 보임)
+        name: items
+        widget: list
+        field:
+          label: 항목
+          name: x
+          widget: string
+  - name: contact
+    label: Contact
+    file: content/contact.json
+    fields:
+    - label: 이메일
+      name: email
+      widget: string
+    - label: 인스타그램 (@포함)
+      name: ig
+      widget: string
